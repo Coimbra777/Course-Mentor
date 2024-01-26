@@ -8,7 +8,7 @@ module.exports = (app) => {
     return bcrypt.hashSync(password, salt);
   };
 
-  // método para salvar, inserir e alterar um novo usuário
+  // métodos para salvar, inserir e alterar um novo usuário
   const save = async (req, res) => {
     const user = { ...req.body };
     if (req.params.id) user.id = req.params.id;
