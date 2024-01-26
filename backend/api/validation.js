@@ -14,9 +14,9 @@ module.exports = (app) => {
     throw msg;
   }
 
-  function equalsOsError(valueA, valueB, msg) {
+  function equalsOrError(valueA, valueB, msg) {
     if (valueA !== valueB) throw msg;
   }
 
-  return { existsOrError, notExistsOrError, equalsOsError };
+  return { existsOrError, notExistsOrError, equalsOrError };
 };
