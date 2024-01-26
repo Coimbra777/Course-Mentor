@@ -56,6 +56,5 @@ module.exports = (app) => {
       .then((users) => res.json(users))
       .catch((err) => res.status(500).send(err));
   };
-
   return { save, get };
 };
