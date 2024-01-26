@@ -53,8 +53,20 @@ module.exports = (app) => {
     app
       .db("users")
       .select("id", "name", "email", "admin")
+      .then((user) => res.json(user))
+      .catch((err) => res.status(500).send(err));
+  };
+
+  // método para buscar usuário pelo Id
+  const getById = (req, res) => {
+    app
+      .db("users")
+      .select("id", "name", "email", "admin")
+      .where({ id: req.params.id })
+      .first()
       .then((users) => res.json(users))
       .catch((err) => res.status(500).send(err));
   };
-  return { save, get };
+
+  return { save, get, getById };
 };
