@@ -24,7 +24,7 @@ module.exports = (app) => {
         .db("users")
         .where({ email: user.email })
         .first();
-      if (user.id) {
+      if (!user.id) {
         notExistsOrError(userFromDB, "Usuário já cadastrado");
       }
     } catch (msg) {
