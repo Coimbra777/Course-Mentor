@@ -8,7 +8,7 @@ module.exports = (app) => {
     return bcrypt.hashSync(password, salt);
   };
 
-  // métodos para salvar, inserir e alterar um novo usuário
+  // métodos que lida com a criação e atualização de usuários.
   const save = async (req, res) => {
     const user = { ...req.body };
     if (req.params.id) user.id = req.params.id;
@@ -48,7 +48,7 @@ module.exports = (app) => {
         .catch((err) => res.status(500).send(err));
     }
   };
-  // método para buscar todos os usuários
+  // Retorna todos os usuários do banco de dados.
   const get = (req, res) => {
     app
       .db("users")
@@ -57,7 +57,7 @@ module.exports = (app) => {
       .catch((err) => res.status(500).send(err));
   };
 
-  // método para buscar usuário pelo Id
+  // Retorna um usuário específico com base no ID.
   const getById = (req, res) => {
     app
       .db("users")
