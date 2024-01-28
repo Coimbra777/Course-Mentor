@@ -23,7 +23,7 @@ module.exports = (app) => {
         .db("categories")
         .insert(category)
         .then((_) => res.status(204).send())
-        .catch((err) => Response.status(500).send(err));
+        .catch((err) => res.status(500).send(err));
     }
   };
 
@@ -38,12 +38,13 @@ module.exports = (app) => {
 
       const articles = await app
         .db("articles")
-        .where({ caegoryId: req.params.id });
+        .where({ categoryId: req.params.id });
       notExistsOrError(articles, "Categoria possui artigos");
 
       const rowDelete = await app
         .db("categories")
-        .where({ id: params.id }.del());
+        .where({ id: req.params.id })
+        .del();
       existsOrError(rowDelete, "Categoria não foi encontrada.");
 
       res.status(204).send();
@@ -53,14 +54,17 @@ module.exports = (app) => {
   };
 
   const withPath = (categories) => {
+    // função para filtrar as parent categorias
     const getParent = (categories, parentId) => {
       const parent = categories.filter((parent) => parent.id === parentId);
       return parent.length ? parent[0] : null;
     };
 
+    // função para buscar e criar o caminho das categorias
     const categoriesWithPath = categories.map((category) => {
-      let path = [category.name];
+      let path = category.name;
       let parent = getParent(categories, category.parentId);
+
       while (parent) {
         path = `${parent.name} > ${path}`;
         parent = getParent(categories, parent.parentId);
@@ -68,7 +72,8 @@ module.exports = (app) => {
       return { ...category, path };
     });
 
-    categoriesWithPath.sorte((a, b) => {
+    // método para ordenar as categorias
+    categoriesWithPath.sort((a, b) => {
       if (a.path < b.path) return -1;
       if (a.path > b.path) return 1;
       return 0;
@@ -80,11 +85,12 @@ module.exports = (app) => {
   // método para retorna as categorias
   const get = (req, res) => {
     app
-      .db("categeories")
+      .db("categories")
       .then((categories) => res.json(withPath(categories)))
       .catch((err) => res.status(500).send(err));
   };
 
+  // método para retonar as subcategorias
   const getById = (req, res) => {
     app
       .db("categories")
