@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     toggleMenu() {
-      console.log("toogleMenu");
+      this.$store.commit("toggleMenu");
     },
   },
 };
