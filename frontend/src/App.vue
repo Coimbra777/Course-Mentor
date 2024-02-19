@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="container">
-      <AppHeader />
+      <AppHeader title="Course Mentor" :hideToggle="false" />
       <AppMenu />
       <AppContent />
       <AppFooter />
