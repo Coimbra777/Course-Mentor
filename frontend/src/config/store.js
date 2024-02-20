@@ -17,7 +17,6 @@ const store = createStore({
       } else {
         state.isMenuVisible = isVisible;
       }
-      console.log("toggleMenu = " + state.isMenuVisible);
     },
   },
 });

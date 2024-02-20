@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="container" :class="{ 'hide-menu': !isMenuVisible }">
+    <div class="container-fluid" :class="{ 'hide-menu': !isMenuVisible }">
       <AppHeader title="Course Mentor" :hideToggle="false" />
       <AppMenu />
       <AppContent />
@@ -11,9 +11,10 @@
 
 <script>
 import AppContent from "./components/template/AppContent.vue";
-import AppFooter from "./components/template/AppFooter.vue";
 import AppHeader from "./components/template/AppHeader.vue";
-import AppMenu from "./components/template/AppMenu";
+import AppMenu from "./components/template/AppMenu.vue";
+
+import AppFooter from "./components/template/AppFooter.vue";
 import { mapState } from "vuex";
 
 export default {
@@ -24,6 +25,8 @@ export default {
     AppContent,
     AppFooter,
   },
+  compatConfig: { MODE: 3 },
+
   computed: mapState(["isMenuVisible"]),
 };
 </script>
@@ -38,7 +41,7 @@ body {
   padding: 0;
 }
 
-.container {
+.container-fluid {
   height: 100vh;
   display: grid;
   grid-template-columns: 300px 1fr;
@@ -49,7 +52,7 @@ body {
     "footer footer";
 }
 
-.container.hide-menu {
+.container-fluid.hide-menu {
   grid-template-areas:
     "header header"
     "content content"
