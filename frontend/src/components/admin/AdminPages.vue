@@ -5,36 +5,39 @@
       main="Administração do Sistema"
       sub="Cadastros"
     />
-    <div class="card">
-      <div class="card-header">
-        <ul class="nav nav-tabs card-header-tabs">
-          <li class="nav-item">
-            <a class="nav-link active" data-bs-toggle="tab" href="#artigos"
-              >Artigos</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#usuarios"
-              >Usuários</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#configuracoes"
-              >Configurações</a
-            >
-          </li>
-        </ul>
-      </div>
-      <div class="card-body">
-        <div class="tab-content">
-          <div class="tab-pane fade show active" id="artigos">
-            Conteúdo dos Artigos
-          </div>
-          <div class="tab-pane fade" id="usuarios">Conteúdo dos Usuários</div>
-          <div class="tab-pane fade" id="configuracoes">
-            Conteúdo das Configurações
-          </div>
-        </div>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li
+        v-for="(tab, index) in tabs"
+        :key="index"
+        class="nav-item"
+        role="presentation"
+      >
+        <button
+          :class="['nav-link', { active: activeTab === tab.id }]"
+          :id="tab.id + '-tab'"
+          data-bs-toggle="tab"
+          :data-bs-target="'#' + tab.id + '-pane'"
+          type="button"
+          role="tab"
+          :aria-controls="tab.id + '-pane'"
+          :aria-selected="activeTab === tab.id"
+          @click="activateTab(tab.id)"
+        >
+          {{ tab.label }}
+        </button>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div
+        v-for="(tab, index) in tabs"
+        :key="index"
+        :class="['tab-pane', { 'fade show active': activeTab === tab.id }]"
+        :id="tab.id + '-pane'"
+        role="tabpanel"
+        :aria-labelledby="tab.id + '-tab'"
+      >
+        <component :is="tab.component" />
+        <!-- Renderiza o componente correspondente à tab -->
       </div>
     </div>
   </div>
@@ -42,12 +45,37 @@
 
 <script>
 import PageTitle from "../template/PageTitle.vue";
-import "bootstrap/dist/css/bootstrap.css";
+import ArticleAdmin from "../admin/ArticleAdmin.vue";
+import UserAdmin from "../admin/UserAdmin.vue";
+import CategorieAdmin from "../admin/CategorieAdmin.vue";
 
 export default {
   name: "AdminPages",
   components: {
     PageTitle,
+    ArticleAdmin,
+    UserAdmin,
+    CategorieAdmin,
+  },
+
+  data() {
+    return {
+      activeTab: "",
+      tabs: [
+        { id: "artigos", label: "Artigos", component: "ArticleAdmin" },
+        { id: "usuarios", label: "Usuários", component: "UserAdmin" },
+        {
+          id: "configuracoes",
+          label: "Configurações",
+          component: "CategorieAdmin",
+        },
+      ],
+    };
+  },
+  methods: {
+    activateTab(tabId) {
+      this.activeTab = tabId;
+    },
   },
 };
 </script>

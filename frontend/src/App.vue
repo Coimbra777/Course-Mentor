@@ -16,6 +16,7 @@ import AppMenu from "./components/template/AppMenu.vue";
 
 import AppFooter from "./components/template/AppFooter.vue";
 import { mapState } from "vuex";
+import "bootstrap/dist/css/bootstrap.css";
 
 export default {
   name: "App",
@@ -25,7 +26,6 @@ export default {
     AppContent,
     AppFooter,
   },
-  compatConfig: { MODE: 3 },
 
   computed: mapState(["isMenuVisible"]),
 };
@@ -42,6 +42,7 @@ body {
 }
 
 .container-fluid {
+  padding: 0px;
   height: 100vh;
   display: grid;
   grid-template-columns: 300px 1fr;
