@@ -6,12 +6,20 @@
     <h1 class="title">
       {{ title }}
     </h1>
+    <div>
+      <AppUserDropdown v-if="!hideUserDropdown" />
+    </div>
   </header>
 </template>
 
 <script>
+import AppUserDropdown from "./AppUserDropdown.vue";
+
 export default {
   name: "AppHeader",
+  components: {
+    AppUserDropdown,
+  },
   props: {
     title: String,
     hideToggle: Boolean,
@@ -36,8 +44,8 @@ export default {
 .header {
   grid-area: header;
   width: 100%;
-
-  background: #eee;
+  background-color: #41444b;
+  color: #f6f4e6;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,23 +53,20 @@ export default {
 
 .title {
   font-size: 1.6rem;
-  color: black;
   font-weight: 100;
   flex-grow: 1;
   text-align: center;
 }
 
 .title a {
-  color: #fff;
+  color: #f6f4e6;
   text-decoration: none;
 }
 
 header.header > a.toggle {
   width: 60px;
   height: 100%;
-  color: #fff;
   justify-self: flex-start;
-
   display: flex;
   justify-content: center;
   align-items: center;

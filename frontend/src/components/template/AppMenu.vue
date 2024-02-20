@@ -15,7 +15,7 @@ export default {
 <style>
 .menu {
   grid-area: menu;
-  background-color: #ddd;
+  background-color: #52575d;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;

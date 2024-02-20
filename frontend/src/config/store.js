@@ -5,8 +5,8 @@ const store = createStore({
     return {
       isMenuVisible: true,
       user: {
-        name: "Usuário Mock",
-        email: "mock@gmail.com.br",
+        name: "Usuário",
+        email: "mock@gmail.com",
       },
     };
   },
