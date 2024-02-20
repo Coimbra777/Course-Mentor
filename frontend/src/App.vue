@@ -15,6 +15,8 @@ import AppFooter from "./components/template/AppFooter.vue";
 import AppHeader from "./components/template/AppHeader.vue";
 import AppMenu from "./components/template/AppMenu.vue";
 import { mapState } from "vuex";
+// import "bootstrap/dist/css/bootstrap.css";
+// import "bootstrap-vue/dist/bootstrap-vue.css";
 
 export default {
   name: "App",

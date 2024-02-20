@@ -15,10 +15,13 @@ export default {
   props: {
     title: String,
     hideToggle: Boolean,
+    hideUserDropdown: Boolean,
   },
   computed: {
     icon() {
-      return "fa-angle-left";
+      return this.$store.state.isMenuVisible
+        ? "fa-angle-left"
+        : "fa-angle-down";
     },
   },
   methods: {
@@ -34,7 +37,7 @@ export default {
   grid-area: header;
   width: 100%;
 
-  background: blue;
+  background: #eee;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,7 +45,7 @@ export default {
 
 .title {
   font-size: 1.6rem;
-  color: white;
+  color: black;
   font-weight: 100;
   flex-grow: 1;
   text-align: center;

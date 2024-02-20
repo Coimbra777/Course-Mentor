@@ -4,6 +4,10 @@ const store = createStore({
   state() {
     return {
       isMenuVisible: true,
+      user: {
+        name: "Usuário Mock",
+        email: "mock@gmail.com.br",
+      },
     };
   },
   mutations: {
