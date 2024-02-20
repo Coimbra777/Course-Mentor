@@ -62,5 +62,29 @@ export default {
   background-color: #f9f9f9;
   min-width: 170px;
   box-shadow: 0 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  padding: 10px;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+}
+
+.user-dropdown:hover .user-dropdown-content {
+  visibility: visible;
+  opacity: 1;
+}
+
+.user-dropdown-content a {
+  color: #000;
+  padding: 10px;
+  text-decoration: none;
+}
+.user-dropdown-content a:hover {
+  background-color: #ededed;
 }
 </style>
