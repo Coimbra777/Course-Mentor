@@ -63,12 +63,12 @@ export default {
       activeTab: "",
       tabs: [
         { id: "artigos", label: "Artigos", component: "ArticleAdmin" },
-        { id: "usuarios", label: "Usuários", component: "UserAdmin" },
         {
-          id: "configuracoes",
-          label: "Configurações",
+          id: "categorias",
+          label: "Categorias",
           component: "CategorieAdmin",
         },
+        { id: "usuarios", label: "Usuários", component: "UserAdmin" },
       ],
     };
   },
