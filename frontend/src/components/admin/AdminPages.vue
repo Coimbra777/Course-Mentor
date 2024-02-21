@@ -37,7 +37,6 @@
         :aria-labelledby="tab.id + '-tab'"
       >
         <component :is="tab.component" />
-        <!-- Renderiza o componente correspondente à tab -->
       </div>
     </div>
   </div>
