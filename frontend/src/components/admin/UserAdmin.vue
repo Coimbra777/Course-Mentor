@@ -13,18 +13,11 @@
               <span class="icon-table" v-if="sortField === field.key">
                 {{ sortOrder === "asc" ? "▲" : "▼" }}
               </span>
-              <span class="icon-table" v-else>
+              <span class="icon-table" v-else-if="field.key !== 'actions'">
                 ▼
                 {{ field.icon }}
               </span>
             </div>
-
-            <!-- <div class="th-content">
-              {{ field.label }}
-              <span class="icon-table">
-                {{ sortOrder === "asc" ? "▲" : "▼" }}
-              </span>
-            </div> -->
           </th>
         </tr>
       </thead>
