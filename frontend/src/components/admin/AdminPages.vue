@@ -67,7 +67,11 @@ export default {
           label: "Categorias",
           component: "CategorieAdmin",
         },
-        { id: "usuarios", label: "Usuários", component: "UserAdmin" },
+        {
+          id: "usuarios",
+          label: "Usuários",
+          component: "UserAdmin",
+        },
       ],
     };
   },
