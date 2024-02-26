@@ -1,5 +1,5 @@
 // import Vue from "vue";
-
+export const userKey = "_course_mentor";
 export const baseApiUrl = "http://localhost:3000";
 
 // export function showError(e) {
@@ -11,3 +11,5 @@ export const baseApiUrl = "http://localhost:3000";
 //     Vue.toasted.global.defaultError();
 //   }
 // }
+
+export default { userKey, baseApiUrl };
