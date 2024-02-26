@@ -4,13 +4,11 @@ import App from "./App.vue";
 import router from "./config/router";
 import store from "./config/store";
 import "bootstrap/dist/css/bootstrap.css";
-// import "bootstrap-vue/dist/bootstrap-vue.css";
-// import { BootstrapVue } from "bootstrap-vue";
-// import "./config/msgs";
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
 
 const app = createApp(App);
-
+app.use(Toast);
 app.use(store);
-// app.use(BootstrapVue);
 app.use(router);
 app.mount("#app");

@@ -21,6 +21,7 @@
     "vue-mq": "^1.0.1",
     "vue-router": "^4.2.5",
     "vue-toasted": "^1.1.28",
+    "vue-toastification": "^2.0.0-rc.5",
     "vue2-editor": "^2.10.3",
     "vuex": "^4.1.0"
   },
