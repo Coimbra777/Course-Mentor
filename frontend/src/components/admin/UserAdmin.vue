@@ -1,5 +1,71 @@
 <template>
   <div class="user-admin">
+    <div class="form-group">
+      <form>
+        <input type="hidden" id="user-id" v-model="user.id" />
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="user-name">Nome:</label>
+              <input
+                id="user-name"
+                type="text"
+                class="form-control"
+                v-model="user.name"
+                required
+                placeholder="Informe o Nome do Usuário..."
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="user-email">Email:</label>
+              <input
+                id="user-email"
+                type="email"
+                class="form-control"
+                v-model="user.email"
+                required
+                placeholder="Informe o Email do Usuário..."
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="user-password">Senha:</label>
+              <input
+                id="user-password"
+                type="password"
+                class="form-control"
+                v-model="user.password"
+                required
+                placeholder="Informe a Senha do Usuário..."
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="user-confirm-password">Confirmação de Senha:</label>
+              <input
+                id="user-confirm-password"
+                type="password"
+                class="form-control"
+                v-model="user.confirmPassword"
+                required
+                placeholder="Confirme a Senha do Usuário..."
+              />
+            </div>
+            <div>
+              <button>Salvar</button>
+              <button>Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
     <table class="user-table">
       <thead>
         <tr>
@@ -66,6 +132,8 @@ export default {
       sortOrder: "asc",
     };
   },
+  compatConfig: { MODE: 3 },
+
   computed: {
     sortedUsers() {
       if (!this.sortField) return this.users;
@@ -83,7 +151,8 @@ export default {
       const url = `${baseApiUrl}/users`;
       axios.get(url).then((res) => {
         this.users = res.data;
-        console.log(this.users);
+
+        // console.log(this.users);
       });
     },
     sortBy(field) {
@@ -126,5 +195,9 @@ export default {
 .th-content {
   display: flex;
   justify-content: space-between;
+}
+
+.form-group {
+  padding: 20px 0;
 }
 </style>
