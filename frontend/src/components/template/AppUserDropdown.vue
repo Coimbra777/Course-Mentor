@@ -11,7 +11,7 @@
       <router-link to="/admin">
         <i class="fa fa-cogs">Administração</i>
       </router-link>
-      <router-link to="/logout">
+      <router-link to="/logout" @click.prevent="logout">
         <i class="fa fa-sign-out">Sair</i>
       </router-link>
     </div>
@@ -21,13 +21,21 @@
 <script>
 import { mapState } from "vuex";
 import md5 from "md5";
+import { userKey } from "../../global";
 
 export default {
   name: "AppUserDropdown",
   computed: mapState(["user"]),
-  gravatar() {
-    const hash = md5(this.user.email.trim().toLowerCase());
-    return `https://www.gravatar.com/avatar/${hash}`;
+  methods: {
+    logout() {
+      localStorage.removeItem(userKey);
+      this.$store.commit("setUser", null);
+      this.$router.push({ name: "auth" });
+    },
+    gravatar() {
+      const hash = md5(this.user.email.trim().toLowerCase());
+      return `https://www.gravatar.com/avatar/${hash}`;
+    },
   },
 };
 </script>
