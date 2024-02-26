@@ -1,8 +1,15 @@
 <template>
   <div id="app">
-    <div class="container-fluid" :class="{ 'hide-menu': !isMenuVisible }">
-      <AppHeader title="Course Mentor" :hideToggle="false" />
-      <AppMenu />
+    <div
+      class="container-fluid"
+      :class="{ 'hide-menu': !isMenuVisible || !user }"
+    >
+      <AppHeader
+        title="Course Mentor"
+        :hideToggle="!user"
+        :hideUserDropdown="!user"
+      />
+      <AppMenu v-if="user" />
       <AppContent />
       <AppFooter />
     </div>
@@ -27,7 +34,7 @@ export default {
     AppFooter,
   },
 
-  computed: mapState(["isMenuVisible"]),
+  computed: mapState(["isMenuVisible", "user"]),
 };
 </script>
 

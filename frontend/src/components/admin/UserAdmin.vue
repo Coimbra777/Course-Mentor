@@ -210,11 +210,10 @@ export default {
       const method = this.user.id ? "put" : "post";
       const id = this.user.id ? `${this.user.id}` : "";
       axios[method](`${baseApiUrl}/users${id}`, this.user)
-        .then((res) => {
+        .then(() => {
           this.toast.success("Usuário cadastrado com sucesso!", {
             timeout: 2000,
           });
-          console.log(res);
           this.reset();
         })
         .catch((error) => {
