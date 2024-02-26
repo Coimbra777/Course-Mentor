@@ -2,36 +2,38 @@
   <div class="auth-content">
     <div class="auth-modal">
       <h2>{{ showSignup ? "Cadastro" : "Login" }}</h2>
-      <div v-if="showSignup" class="form-group">
-        <label for="username">Nome de usuário:</label>
-        <input type="text" id="username" v-model="user.name" />
-      </div>
-      <div class="form-group">
-        <label for="email">E-mail:</label>
-        <input type="email" id="email" v-model="user.email" />
-      </div>
-      <div class="form-group">
-        <label for="password">Senha:</label>
-        <input type="password" id="password" v-model="user.password" />
-      </div>
-      <div v-if="showSignup" class="form-group">
-        <label for="confirm-password">Confirmar Senha:</label>
-        <input
-          type="password"
-          id="confirm-password"
-          v-model="user.confirmPassword"
-        />
-      </div>
-      <div>
-        <button v-if="showSignup" @click="signup">Registrar</button>
-        <button v-else @click="signin">Entrar</button>
-      </div>
-      <p>
-        {{ showSignup ? "Já possui uma conta?" : "Não possui uma conta?" }}
-        <a href="#" @click="toggleSignup">{{
-          showSignup ? "Entrar" : "Cadastrar"
-        }}</a>
-      </p>
+      <form @submit.prevent="submitForm">
+        <div v-if="showSignup" class="form-group">
+          <label for="username">Nome de usuário:</label>
+          <input type="text" id="username" v-model="user.name" />
+        </div>
+        <div class="form-group">
+          <label for="email">E-mail:</label>
+          <input type="email" id="email" v-model="user.email" />
+        </div>
+        <div class="form-group">
+          <label for="password">Senha:</label>
+          <input type="password" id="password" v-model="user.password" />
+        </div>
+        <div v-if="showSignup" class="form-group">
+          <label for="confirm-password">Confirmar Senha:</label>
+          <input
+            type="password"
+            id="confirm-password"
+            v-model="user.confirmPassword"
+          />
+        </div>
+        <div>
+          <button v-if="showSignup" @click="signup">Registrar</button>
+          <button v-else @click="signin">Entrar</button>
+        </div>
+        <p>
+          {{ showSignup ? "Já possui uma conta?" : "Não possui uma conta?" }}
+          <a href="#" @click="toggleSignup">{{
+            showSignup ? "Entrar" : "Cadastrar"
+          }}</a>
+        </p>
+      </form>
     </div>
   </div>
 </template>
@@ -66,7 +68,6 @@ export default {
         .catch((error) => {
           if (error.response.data) {
             this.showToast(error.response.data, "error");
-            console.log(error.response.data);
           } else {
             this.showToast("Erro ao fazer login", "error");
           }
@@ -84,7 +85,6 @@ export default {
         .catch((error) => {
           if (error.response && error.response.data) {
             this.showToast(error.response.data, "error");
-            console.log(error);
           } else {
             this.showToast("Erro ao cadastrar o usuário", "error");
           }
@@ -93,13 +93,6 @@ export default {
 
     showToast(message, type) {
       this.toast(message, { type: type });
-    },
-    submitForm() {
-      if (this.showSignup) {
-        this.signup();
-      } else {
-        this.signin();
-      }
     },
   },
   mounted() {
