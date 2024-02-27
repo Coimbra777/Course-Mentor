@@ -80,16 +80,26 @@ module.exports = (app) => {
       const articles = await app.db("articles").where({
         userId: req.params.id,
       });
-      notExistsOrError(articles, "Usuário possui artigos");
 
-      const rowsUpdate = await app
+      if (articles.length > 0) {
+        return res
+          .status(400)
+          .send("Usuário possui artigos associados e não pode ser excluído.");
+      }
+
+      const rowsDeleted = await app
         .db("users")
-        .update({ deleteAt: new Date() })
-        .where({ id: req.params.id });
+        .where({ id: req.params.id })
+        .del();
 
-      existsOrError(rowsUpdate, "Usuário não foi encontrado");
-    } catch (msg) {
-      res.status(400).send(msg);
+      if (rowsDeleted > 0) {
+        return res.status(204).send();
+      } else {
+        return res.status(404).send("Usuário não encontrado.");
+      }
+    } catch (error) {
+      console.error("Erro ao excluir usuário:", error);
+      res.status(500).send("Erro interno ao excluir usuário.");
     }
   };
 
