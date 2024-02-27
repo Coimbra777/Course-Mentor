@@ -72,6 +72,8 @@ header.header > a.toggle {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #f6f4e6;
+  text-decoration: none;
 }
 
 header.header > a.toggle:hover {

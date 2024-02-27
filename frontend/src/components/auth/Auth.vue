@@ -1,35 +1,62 @@
 <template>
   <div class="auth-content">
     <div class="auth-modal">
+      <div>
+        <Logo />
+      </div>
       <h2>{{ showSignup ? "Cadastro" : "Login" }}</h2>
       <form @submit.prevent="submitForm">
         <div v-if="showSignup" class="form-group">
-          <label for="username">Nome de usuário:</label>
-          <input type="text" id="username" v-model="user.name" />
+          <i class="fa fa-user"></i>
+          <input
+            class="form-input"
+            type="text"
+            id="username"
+            v-model="user.name"
+            placeholder="Nome de usuário"
+          />
         </div>
         <div class="form-group">
-          <label for="email">E-mail:</label>
-          <input type="email" id="email" v-model="user.email" />
+          <i class="fa fa-envelope"></i>
+          <input
+            class="form-input"
+            type="email"
+            id="email"
+            v-model="user.email"
+            placeholder="E-mail"
+          />
         </div>
         <div class="form-group">
-          <label for="password">Senha:</label>
-          <input type="password" id="password" v-model="user.password" />
+          <i class="fa fa-lock"></i>
+          <input
+            class="form-input"
+            type="password"
+            id="password"
+            v-model="user.password"
+            placeholder="Senha"
+          />
         </div>
         <div v-if="showSignup" class="form-group">
-          <label for="confirm-password">Confirmar Senha:</label>
+          <i class="fa fa-lock"></i>
           <input
+            class="form-input"
             type="password"
             id="confirm-password"
             v-model="user.confirmPassword"
+            placeholder="Confirmar Senha"
           />
         </div>
         <div>
-          <button v-if="showSignup" @click="signup">Registrar</button>
-          <button v-else @click="signin">Entrar</button>
+          <button class="button-form" v-if="showSignup" @click="signup">
+            Registrar
+          </button>
+          <button class="button-form" v-else @click="signin">Entrar</button>
         </div>
+        <hr />
+
         <p>
           {{ showSignup ? "Já possui uma conta?" : "Não possui uma conta?" }}
-          <a href="#" @click="toggleSignup">{{
+          <a class="link-router" href="#" @click="toggleSignup">{{
             showSignup ? "Entrar" : "Cadastrar"
           }}</a>
         </p>
@@ -42,9 +69,11 @@
 import { baseApiUrl, userKey } from "../../global";
 import axios from "axios";
 import { useToast } from "vue-toastification";
+import Logo from "./Logo.vue";
 
 export default {
   name: "AuthPage",
+  components: { Logo },
   data() {
     return {
       showSignup: false,
@@ -109,32 +138,54 @@ export default {
   justify-content: center;
 }
 .auth-modal {
-  width: 500px;
-  background-color: white;
-  padding: 50px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  width: 400px;
   display: flex;
   align-items: center;
   flex-direction: column;
+  color: #f6f4e6;
+  border-radius: 5px;
+}
+.logo {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
 }
 .form-group {
-  margin-bottom: 15px;
+  position: relative;
+  padding: 10px 0;
 }
-input {
+.form-group i {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ccc;
+}
+.form-input {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
+  padding: 8px 30px 8px 35px;
+  border: none;
+  outline: none;
   border-radius: 4px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 }
-button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
+.button-form {
+  width: 100%;
+  padding: 10px;
+  background-color: #ffd711;
+  color: #41444b;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin: 10px 0;
 }
-button:hover {
-  background-color: #0056b3;
+.button-form:hover {
+  background-color: #fddc3a;
+}
+.link-router {
+  text-decoration: none;
+}
+.link-router:hover {
+  color: #fddc3a;
 }
 </style>

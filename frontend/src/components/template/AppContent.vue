@@ -13,5 +13,6 @@ export default {
   grid-area: content;
   width: 100%;
   padding: 40px;
+  /* background-color: #52575d; */
 }
 </style>

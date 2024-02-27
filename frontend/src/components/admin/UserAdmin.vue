@@ -1,6 +1,6 @@
 <template>
   <div class="user-admin">
-    <form class="form">
+    <form @submit.prevent="submitForm" class="form">
       <div class="row">
         <div class="col-md-6">
           <label for="user-name">Nome:</label>
@@ -72,14 +72,15 @@
           Salvar
         </button>
         <button
-          type="button"
           class="btn btn-danger"
           v-if="mode === 'remove'"
           @click="remove()"
         >
           Excluir
         </button>
-        <button class="btn btn-secondary m-2" @click="reset">Cancelar</button>
+        <button type="button" class="btn btn-secondary m-2" @click="reset">
+          Cancelar
+        </button>
       </div>
     </form>
 
@@ -129,7 +130,6 @@
               <i class="fa fa-pencil"></i>
             </button>
             <button
-              type="button"
               class="btn btn-danger btn-sm button-delete"
               variant="danger"
               @click="loadUser(user, 'remove')"
@@ -187,7 +187,6 @@ export default {
     loadUser(user, mode = "save") {
       this.mode = mode;
       this.user = { ...user };
-      console.log(this.user);
     },
     sortBy(field) {
       if (this.sortField === field) {
@@ -236,8 +235,12 @@ export default {
           this.toast.success("Usuário removido com sucesso!");
           this.reset();
         })
-        .catch(() => {
-          this.toast.error("Erro ao remover o usuário!");
+        .catch((error) => {
+          if (error.response && error.response.data) {
+            this.toast.error(error.response.data);
+          } else {
+            this.toast.error("Erro ao remover o usuário!");
+          }
         });
     },
   },
@@ -299,10 +302,6 @@ export default {
   cursor: pointer;
   background-color: transparent;
   transform: scale(1.2);
-}
-
-.user-admin {
-  margin: 20px;
 }
 
 .form-control {

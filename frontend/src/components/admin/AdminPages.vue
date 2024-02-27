@@ -83,4 +83,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.nav-link {
+  font-weight: bold;
+}
+
+.nav-link:hover {
+  background-color: #f8f9fa;
+}
+</style>
