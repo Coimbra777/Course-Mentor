@@ -12,7 +12,6 @@ export default {
 .content {
   grid-area: content;
   width: 100%;
-  background: #f6f4e6;
-  padding: 20px;
+  padding: 40px;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="user-admin">
-    <form>
+    <form class="form">
       <div class="row">
         <div class="col-md-6">
           <label for="user-name">Nome:</label>
@@ -250,6 +250,7 @@ export default {
 
 <style>
 .user-table {
+  max-width: 100%;
   width: 100%;
 }
 
@@ -264,10 +265,6 @@ export default {
 .user-table th {
   background-color: #f2f2f2;
   font-weight: bold;
-}
-
-.admin-row {
-  background-color: #dff0d8;
 }
 
 .th-content {
@@ -302,5 +299,40 @@ export default {
   cursor: pointer;
   background-color: transparent;
   transform: scale(1.2);
+}
+
+.user-admin {
+  margin: 20px;
+}
+
+.form-control {
+  height: 45px;
+}
+
+.btn-primary,
+.btn-danger,
+.btn-secondary {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.user-table th,
+.user-table td {
+  padding: 15px;
+}
+
+.user-table th {
+  background-color: #f2f2f2;
+}
+
+.form {
+  margin: 40px 0;
+}
+.form label {
+  margin-bottom: 10px;
+}
+.form input {
+  background-color: #f2f2f2;
 }
 </style>
