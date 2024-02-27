@@ -21,7 +21,7 @@
         title="Usuários"
         :value="stat.users"
         icon="fa fa-user"
-        color="#3282cd"
+        color="#007bff"
       />
     </div>
   </div>
@@ -55,17 +55,14 @@ export default {
 </script>
 
 <style>
-.home {
-  padding: 20px;
-}
-
 .stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-.stat-card {
+/* .stat-card {
+  display: grid;
   background-color: #ffffff;
   border-radius: 8px;
   padding: 20px;
@@ -92,9 +89,5 @@ export default {
 .stat-card-icon {
   font-size: 2rem;
   color: #888888;
-}
-
-.fa {
-  margin-right: 10px;
-}
+} */
 </style>

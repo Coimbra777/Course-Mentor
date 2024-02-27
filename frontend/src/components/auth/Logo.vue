@@ -27,10 +27,4 @@ export default {
 .logo-svg {
   width: 100px;
 }
-
-.logo-text {
-  font-size: 18px;
-  font-weight: bold;
-  color: #fff;
-}
 </style>
