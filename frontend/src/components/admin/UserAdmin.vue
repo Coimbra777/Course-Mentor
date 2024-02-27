@@ -1,93 +1,87 @@
 <template>
   <div class="user-admin">
-    <div class="form-group">
-      <form>
-        <input type="hidden" id="user-id" v-model="user.id" />
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="user-name">Nome:</label>
-              <input
-                id="user-name"
-                type="text"
-                class="form-control"
-                v-model="user.name"
-                required
-                placeholder="Informe o Nome do Usuário..."
-                :readonly="mode === 'remove'"
-              />
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="user-email">Email:</label>
-              <input
-                id="user-email"
-                type="email"
-                class="form-control"
-                v-model="user.email"
-                required
-                placeholder="Informe o Email do Usuário..."
-              />
-            </div>
-          </div>
-        </div>
-        <div class="form-check mt-3 mb-3">
+    <form>
+      <div class="row">
+        <div class="col-md-6">
+          <label for="user-name">Nome:</label>
           <input
-            type="checkbox"
-            id="user-admin"
-            class="form-check-input"
-            v-model="user.admin"
+            id="user-name"
+            type="text"
+            class="form-control"
+            v-model="user.name"
+            required
+            placeholder="Informe o Nome do Usuário..."
+            :disabled="mode === 'remove'"
           />
-          <label for="user-admin" class="form-check-label"
-            >Administrador?</label
-          >
         </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="user-password">Senha:</label>
-              <input
-                id="user-password"
-                type="password"
-                class="form-control"
-                v-model="user.password"
-                required
-                placeholder="Informe a Senha do Usuário..."
-                :disabled="mode === 'remove'"
-              />
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="user-confirm-password">Confirmação de Senha:</label>
-              <input
-                id="user-confirm-password"
-                type="password"
-                class="form-control"
-                v-model="user.confirmPassword"
-                required
-                placeholder="Confirme a Senha do Usuário..."
-                :disabled="mode === 'remove'"
-              />
-            </div>
-          </div>
+        <div class="col-md-6">
+          <label for="user-email">Email:</label>
+          <input
+            id="user-email"
+            type="email"
+            class="form-control"
+            v-model="user.email"
+            required
+            placeholder="Informe o Email do Usuário..."
+            :disabled="mode === 'remove'"
+          />
         </div>
-        <div class="mt-3 mb-3">
-          <button class="btn btn-primary" v-if="mode === 'save'" @click="save">
-            Salvar
-          </button>
-          <button
-            class="btn btn-danger"
-            v-if="mode === 'remove'"
-            @click="remove(user.id)"
-          >
-            Excluir
-          </button>
-          <button class="btn btn-secondary m-2" @click="reset">Cancelar</button>
+      </div>
+      <div class="form-check mt-3 mb-3" v-show="mode === 'save'">
+        <input
+          type="checkbox"
+          id="user-admin"
+          class="form-check-input"
+          v-model="user.admin"
+        />
+        <label for="user-admin" class="form-check-label">Administrador?</label>
+      </div>
+      <div class="row" v-show="mode === 'save'">
+        <div class="col-md-6">
+          <label for="user-password">Senha:</label>
+          <input
+            id="user-password"
+            type="password"
+            class="form-control"
+            v-model="user.password"
+            required
+            placeholder="Informe a Senha do Usuário..."
+            :disabled="mode === 'remove'"
+          />
         </div>
-      </form>
-    </div>
+        <div class="col-md-6">
+          <label for="user-confirm-password">Confirmação de Senha:</label>
+          <input
+            id="user-confirm-password"
+            type="password"
+            class="form-control"
+            v-model="user.confirmPassword"
+            required
+            placeholder="Confirme a Senha do Usuário..."
+            :disabled="mode === 'remove'"
+          />
+        </div>
+      </div>
+      <div class="mt-3 mb-3">
+        <button
+          type="button"
+          class="btn btn-primary"
+          v-if="mode === 'save'"
+          @click="save"
+        >
+          Salvar
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          v-if="mode === 'remove'"
+          @click="remove()"
+        >
+          Excluir
+        </button>
+        <button class="btn btn-secondary m-2" @click="reset">Cancelar</button>
+      </div>
+    </form>
 
     <table class="user-table">
       <thead>
@@ -125,16 +119,18 @@
               {{ user[field.key] }}
             </template>
           </td>
-          <td>
+          <td class="button-cell">
             <button
-              class="btn btn-warning btn-sm"
+              type="button"
+              class="btn btn-warning btn-sm button-edit"
               variant="warning"
               @click="loadUser(user)"
             >
               <i class="fa fa-pencil"></i>
             </button>
             <button
-              class="btn btn-danger btn-sm m-2"
+              type="button"
+              class="btn btn-danger btn-sm button-delete"
               variant="danger"
               @click="loadUser(user, 'remove')"
             >
@@ -208,22 +204,34 @@ export default {
     },
     save() {
       const method = this.user.id ? "put" : "post";
-      const id = this.user.id ? `${this.user.id}` : "";
+      const id = this.user.id ? `/${this.user.id}` : "";
       axios[method](`${baseApiUrl}/users${id}`, this.user)
         .then(() => {
-          this.toast.success("Usuário cadastrado com sucesso!", {
-            timeout: 2000,
-          });
+          if (method === "post") {
+            this.toast.success("Usuário cadastrado com sucesso!", {
+              timeout: 2000,
+            });
+          } else if (method === "put") {
+            this.toast.success("usuário alterado com sucesso!", {
+              timeout: 2000,
+            });
+          } else {
+            return;
+          }
           this.reset();
         })
         .catch((error) => {
-          console.error("Erro ao cadastrar o usuário:", error);
-          this.toast.error("Erro ao cadastrar o usuário!");
+          if (error.response.data) {
+            this.toast.error(error.response.data, "error");
+          } else {
+            this.toast.error("Erro ao fazer login", "error");
+          }
         });
     },
-    remove(userId) {
+    remove() {
+      const id = this.user.id;
       axios
-        .delete(`${baseApiUrl}/users/${userId}`)
+        .delete(`${baseApiUrl}/users/${id}`)
         .then(() => {
           this.toast.success("Usuário removido com sucesso!");
           this.reset();
@@ -269,5 +277,30 @@ export default {
 
 .form-group {
   padding: 20px 0;
+}
+
+.button-cell button {
+  font-size: 25px;
+  background-color: transparent;
+  border: none;
+  margin: 0;
+}
+.button-cell button i {
+  margin: 0;
+  padding: 2px;
+}
+
+.button-cell .button-edit {
+  color: orange;
+}
+
+.button-cell .button-delete {
+  color: red;
+}
+
+.button-cell button:hover {
+  cursor: pointer;
+  background-color: transparent;
+  transform: scale(1.2);
 }
 </style>

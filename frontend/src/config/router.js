@@ -21,6 +21,10 @@ const routes = [
     path: "/auth",
     component: AuthPages,
   },
+  {
+    path: "/logout",
+    name: "logout",
+  },
 ];
 
 const router = createRouter({

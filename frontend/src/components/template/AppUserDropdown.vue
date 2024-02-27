@@ -8,7 +8,7 @@
       <i class="fa fa-angle-down"></i>
     </div>
     <div class="user-dropdown-content">
-      <router-link to="/admin">
+      <router-link to="/admin" v-if="user.admin">
         <i class="fa fa-cogs">Administração</i>
       </router-link>
       <router-link to="/logout" @click.prevent="logout">
@@ -31,10 +31,6 @@ export default {
       this.$store.commit("setUser", null);
       this.$router.push({ name: "auth" });
     },
-    // gravatar() {
-    //   const hash = md5(this.user.email.trim().toLowerCase());
-    //   return `https://www.gravatar.com/avatar/${hash}`;
-    // },
   },
 };
 </script>

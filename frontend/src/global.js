@@ -1,14 +1,16 @@
 // import Vue from "vue";
+// import { useToast } from "vue-toastification";
 export const userKey = "_course_mentor";
 export const baseApiUrl = "http://localhost:3000";
 
 // export function showError(e) {
+//   const toast = useToast();
 //   if (e && e.response && e.response.data) {
-//     Vue.toasted.global.defaultError({ msg: e.response.data });
+//     toast.global.defaultError({ msg: e.response.data });
 //   } else if (typeof e === "string") {
-//     Vue.toasted.global.defaultError({ msg: e });
+//     toast.global.defaultError({ msg: e });
 //   } else {
-//     Vue.toasted.global.defaultError();
+//     toast.global.defaultError();
 //   }
 // }
 
