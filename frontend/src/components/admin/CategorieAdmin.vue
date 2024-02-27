@@ -1,108 +1,101 @@
 <template>
   <div class="category-admin">
-    <!-- Common Box -->
-    <common-box title="Formulário de Categorias">
-      <!-- Formulário de categorias -->
-      <form @submit.prevent="submitForm" class="form">
-        <div class="row">
-          <label for="category-name">Categoria:</label>
-          <input
-            id="category-name"
-            type="text"
-            class="form-control"
-            v-model="category.name"
-            required
-            placeholder="Informe a Categoria..."
-            :disabled="mode === 'remove'"
-          />
-        </div>
-        <div class="row">
-          <label for="category-parentId">Categoria Pai:</label>
-          <select
-            class="form-control"
-            name="category"
-            id="category-parentId"
-            v-model="category.parentId"
-          >
-            <option v-for="cat in categories" :key="cat.id" :value="cat.id">
-              {{ cat.path }}
-            </option>
-          </select>
-        </div>
-        <div class="mt-3 mb-3">
-          <button
-            type="button"
-            class="btn btn-primary"
-            v-if="mode === 'save'"
-            @click="save"
-          >
-            Salvar
-          </button>
-          <button
-            type="button"
-            class="btn btn-danger"
-            v-if="mode === 'remove'"
-            @click="remove()"
-          >
-            Excluir
-          </button>
-          <button type="button" class="btn btn-secondary m-2" @click="reset">
-            Cancelar
-          </button>
-        </div>
-      </form>
-    </common-box>
+    <form @submit.prevent="submitForm" class="form">
+      <div class="row">
+        <label for="category-name">Categoria:</label>
+        <input
+          id="category-name"
+          type="text"
+          class="form-control"
+          v-model="category.name"
+          required
+          placeholder="Informe a Categoria..."
+          :disabled="mode === 'remove'"
+        />
+      </div>
+      <div class="row" v-show="mode === 'save'">
+        <label for="category-parentId">Categoria Pai:</label>
+        <select
+          class="form-control"
+          name="category"
+          id="category-parentId"
+          v-model="category.parentId"
+        >
+          <option v-for="cat in categories" :key="cat.id" :value="cat.id">
+            {{ cat.path }}
+          </option>
+        </select>
+      </div>
+      <div class="mt-3 mb-3">
+        <button
+          type="button"
+          class="btn btn-primary"
+          v-if="mode === 'save'"
+          @click="save"
+        >
+          Salvar
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          v-if="mode === 'remove'"
+          @click="remove()"
+        >
+          Excluir
+        </button>
+        <button type="button" class="btn btn-secondary m-2" @click="reset">
+          Cancelar
+        </button>
+      </div>
+    </form>
 
-    <!-- Tabela de categorias -->
-    <common-box title="Categorias">
-      <table class="category-table">
-        <thead>
-          <tr>
-            <th
-              v-for="(field, index) in fields"
-              :key="index"
-              @click="sortBy(field.key)"
+    <table class="category-table">
+      <thead>
+        <tr>
+          <th
+            v-for="(field, index) in fields"
+            :key="index"
+            @click="sortBy(field.key)"
+          >
+            <div class="th-content">
+              {{ field.label }}
+              <span class="icon-table" v-if="sortField === field.key">
+                {{ sortOrder === "asc" ? "▲" : "▼" }}
+              </span>
+              <span class="icon-table" v-else-if="field.key !== 'actions'">
+                ▼
+                {{ field.icon }}
+              </span>
+            </div>
+          </th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="category in sortedCategories" :key="category.id">
+          <td>{{ category.id }}</td>
+          <td>{{ category.name }}</td>
+          <td>{{ category.path }}</td>
+          <td class="button-cell">
+            <button
+              type="button"
+              class="btn btn-warning btn-sm button-edit"
+              variant="warning"
+              @click="loadCategory(category)"
             >
-              <div class="th-content">
-                {{ field.label }}
-                <span class="icon-table" v-if="sortField === field.key">
-                  {{ sortOrder === "asc" ? "▲" : "▼" }}
-                </span>
-                <span class="icon-table" v-else-if="field.key !== 'actions'">
-                  ▼
-                  {{ field.icon }}
-                </span>
-              </div>
-            </th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="category in sortedCategories" :key="category.id">
-            <td>{{ category.id }}</td>
-            <td>{{ category.name }}</td>
-            <td>{{ category.path }}</td>
-            <td class="button-cell">
-              <button
-                type="button"
-                class="btn btn-warning btn-sm button-edit"
-                variant="warning"
-                @click="loadCategory(category)"
-              >
-                <i class="fa fa-pencil"></i>
-              </button>
-              <button
-                class="btn btn-danger btn-sm button-delete"
-                variant="danger"
-                @click="loadCategory(category, 'remove')"
-              >
-                <i class="fa fa-trash"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </common-box>
+              <i class="fa fa-pencil"></i>
+            </button>
+            <button
+              class="btn btn-danger btn-sm button-delete"
+              variant="danger"
+              @click="loadCategory(category, 'remove')"
+            >
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
