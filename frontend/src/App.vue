@@ -10,7 +10,8 @@
         :hideUserDropdown="!user"
       />
       <AppMenu v-if="user" />
-      <AppContent />
+      <Loading v-if="validatingToken" />
+      <AppContent v-else />
       <AppFooter />
     </div>
   </div>
@@ -22,7 +23,11 @@ import AppHeader from "./components/template/AppHeader.vue";
 import AppMenu from "./components/template/AppMenu.vue";
 
 import AppFooter from "./components/template/AppFooter.vue";
+import Loading from "./components/template/Loading.vue";
 import { mapState } from "vuex";
+import axios from "axios";
+import { baseApiUrl, userKey } from "./global";
+
 import "bootstrap/dist/css/bootstrap.css";
 
 export default {
@@ -32,9 +37,47 @@ export default {
     AppMenu,
     AppContent,
     AppFooter,
+    Loading,
   },
-
   computed: mapState(["isMenuVisible", "user"]),
+  data() {
+    return {
+      validatingToken: true,
+    };
+  },
+  mounted() {
+    this.validateToken();
+  },
+  methods: {
+    async validateToken() {
+      const json = localStorage.getItem(userKey);
+      const userData = JSON.parse(json);
+      this.$store.commit("setUser", null);
+
+      if (!userData) {
+        this.validatingToken = false;
+        this.$router.push({ name: "auth" });
+        return;
+      }
+
+      try {
+        const res = await axios.post(`${baseApiUrl}/validateToken`, userData);
+
+        if (res.data) {
+          this.$store.commit("setUser", userData);
+        } else {
+          localStorage.removeItem(userKey);
+          this.$router.push({ name: "auth" });
+        }
+      } catch (error) {
+        console.error("Error while validating token:", error);
+        localStorage.removeItem(userKey);
+        this.$router.push({ name: "auth" });
+      } finally {
+        this.validatingToken = false;
+      }
+    },
+  },
 };
 </script>
 

@@ -5,9 +5,11 @@ import router from "./config/router";
 import store from "./config/store";
 import "bootstrap/dist/css/bootstrap.css";
 import Toast from "vue-toastification";
+import VueGravatar from "vue3-gravatar";
 import "vue-toastification/dist/index.css";
 
 const app = createApp(App);
+app.use(VueGravatar);
 app.use(Toast);
 app.use(store);
 app.use(router);

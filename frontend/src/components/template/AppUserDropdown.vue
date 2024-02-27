@@ -3,7 +3,7 @@
     <div class="user-button">
       <span class="d-none d-sm-block">{{ user.name }}</span>
       <div class="user-dropdown-img">
-        <img :email="user.email" :src="gravatar" alt="image" />
+        <vue-gravatar :email="user.email" :size="150" default-image="mp" />
       </div>
       <i class="fa fa-angle-down"></i>
     </div>
@@ -20,7 +20,6 @@
 
 <script>
 import { mapState } from "vuex";
-import md5 from "md5";
 import { userKey } from "../../global";
 
 export default {
@@ -32,10 +31,10 @@ export default {
       this.$store.commit("setUser", null);
       this.$router.push({ name: "auth" });
     },
-    gravatar() {
-      const hash = md5(this.user.email.trim().toLowerCase());
-      return `https://www.gravatar.com/avatar/${hash}`;
-    },
+    // gravatar() {
+    //   const hash = md5(this.user.email.trim().toLowerCase());
+    //   return `https://www.gravatar.com/avatar/${hash}`;
+    // },
   },
 };
 </script>
