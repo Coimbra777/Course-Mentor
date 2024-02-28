@@ -8,7 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@vue/compat": "^3.4.19",
+    "@vue/compat": "^3.4.21",
     "axios": "^1.6.7",
     "bootstrap": "^5.3.3",
     "bootstrap-vue": "^2.23.1",
@@ -17,13 +17,11 @@
     "highlightjs": "^9.16.2",
     "liquor-tree": "^0.2.70",
     "md5": "^2.3.0",
-    "vue": "^3.4.20",
-    "vue-gravatar": "^1.4.1",
+    "vue": "^3.4.21",
     "vue-mq": "^1.0.1",
     "vue-router": "^4.2.5",
     "vue-toasted": "^1.1.28",
     "vue-toastification": "^2.0.0-rc.5",
-    "vue2-editor": "^2.10.3",
     "vue3-gravatar": "^3.0.0",
     "vuex": "^4.1.0"
   },

@@ -92,7 +92,7 @@ export default {
           this.$store.commit("setUser", res.data);
           localStorage.setItem(userKey, JSON.stringify(res.data));
           this.$router.push({ path: "/" });
-          this.showToast("Login bem-sucedido", "success");
+          // this.showToast("Login bem-sucedido", "success");
         })
         .catch((error) => {
           if (error.response.data) {
