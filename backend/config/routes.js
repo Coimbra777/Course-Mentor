@@ -9,6 +9,7 @@ module.exports = (app) => {
   app
     .route("/users")
     .all(app.config.passport.authenticate())
+    // .get(app.api.user.get)
     .get(admin(app.api.user.get))
     .post(app.api.user.save);
 
@@ -22,6 +23,8 @@ module.exports = (app) => {
   app
     .route("/categories")
     .all(app.config.passport.authenticate())
+    // .get(app.api.category.get)
+    // .post(app.api.category.save);
     .get(admin(app.api.category.get))
     .post(admin(app.api.category.save));
 
@@ -40,6 +43,8 @@ module.exports = (app) => {
   app
     .route("/articles")
     .all(app.config.passport.authenticate())
+    // .get(app.api.article.get)
+    // .post(app.api.article.save);
     .get(admin(app.api.article.get))
     .post(admin(app.api.article.save));
 
@@ -57,6 +62,6 @@ module.exports = (app) => {
 
   app
     .route("/stats")
-    // .all(app.config.passport.authenticate())
+    .all(app.config.passport.authenticate())
     .get(app.api.stats.get);
 };

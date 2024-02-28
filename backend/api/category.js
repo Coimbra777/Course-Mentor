@@ -6,7 +6,7 @@ module.exports = (app) => {
     if (req.params.id) category.id = req.params.id;
 
     try {
-      existsOrError(category.name, "Nome não informado");
+      existsOrError(category.name, "Categoria não informada");
     } catch (msg) {
       return res.status(400).send(msg);
     }
