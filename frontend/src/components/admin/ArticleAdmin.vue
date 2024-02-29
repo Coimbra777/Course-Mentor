@@ -10,7 +10,6 @@
           type="text"
           class="form-control"
           v-model="article.name"
-          required
           :readonly="mode === 'remove'"
           placeholder="Informe o Nome do Artigo..."
         />
@@ -22,7 +21,6 @@
           type="text"
           class="form-control"
           v-model="article.description"
-          required
           :readonly="mode === 'remove'"
           placeholder="Informe a Descrição do Artigo..."
         />
@@ -72,6 +70,7 @@
           </option>
         </select>
       </div>
+
       <!-- Editor de conteúdo -->
       <div v-if="mode === 'save'" class="form-group row">
         <label for="article-content">Conteúdo:</label>
@@ -147,24 +146,6 @@
         </tr>
       </tbody>
     </table>
-    <!-- navegação pagina -->
-    <nav aria-label="Page navigation">
-      <ul class="pagination">
-        <li class="page-item" :class="{ disabled: page === 1 }">
-          <a class="page-link" href="#" @click.prevent="page > 1 && page--"
-            >Anterior</a
-          >
-        </li>
-        <li class="page-item" :class="{ disabled: page * limit >= count }">
-          <a
-            class="page-link"
-            href="#"
-            @click.prevent="page * limit < count && page++"
-            >Próximo</a
-          >
-        </li>
-      </ul>
-    </nav>
   </div>
 </template>
 
@@ -175,34 +156,9 @@ import { useToast } from "vue-toastification";
 
 export default {
   name: "ArticleAdmin",
+
   data() {
     return {
-      editorOptions: {
-        modules: {
-          toolbar: [
-            [{ header: [1, 2, 3, 4, 5, 6, false] }],
-            ["bold", "italic", "underline", "strike"],
-            [{ list: "ordered" }, { list: "bullet" }],
-            ["link", "image", "video"],
-            ["clean"],
-          ],
-        },
-        theme: "snow",
-        placeholder: "Informe o Conteúdo do Artigo...",
-        formats: [
-          "header",
-          "bold",
-          "italic",
-          "underline",
-          "strike",
-          "list",
-          "bullet",
-          "link",
-          "image",
-          "video",
-        ],
-      },
-
       mode: "save",
       article: {},
       articles: [],
@@ -241,8 +197,9 @@ export default {
         this.sortOrder = "asc";
       }
     },
+
     loadArticles() {
-      const url = `${baseApiUrl}/articles?page=${this.page}`;
+      const url = `${baseApiUrl}/articles?`;
       axios.get(url).then((res) => {
         this.articles = res.data.data;
         this.count = res.data.count;
@@ -302,10 +259,6 @@ export default {
       this.mode = mode;
       axios.get(`${baseApiUrl}/articles/${article.id}`).then((res) => {
         this.article = res.data;
-
-        // console.log((this.article.id = res.data.id));
-        // console.log((this.article.name = res.data.name));
-        // console.log((this.article.content = res.data.content));
       });
     },
     loadCategories() {
@@ -327,9 +280,10 @@ export default {
   },
   watch: {
     page() {
-      this.loadArticles();
+      console.log(this.page);
     },
   },
+
   mounted() {
     this.loadUsers();
     this.loadCategories();

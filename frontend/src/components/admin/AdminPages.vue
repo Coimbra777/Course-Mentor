@@ -76,7 +76,7 @@ export default {
     };
   },
   mounted() {
-    this.activateTab("usuarios");
+    this.activateTab("artigos");
   },
   methods: {
     activateTab(tabId) {
