@@ -52,18 +52,20 @@ module.exports = (app) => {
     }
   };
 
-  const limit = 10; // usado para paginação
   const get = async (req, res) => {
-    const page = req.query.page || 1;
+    const page = req.query.page || 1; // Página solicitada, default é 1
 
     const result = await app.db("articles").count("id").first();
     const count = parseInt(result.count);
+
+    const limit = 3; // usado para paginação
+    const offset = (page - 1) * limit;
 
     app
       .db("articles")
       .select("id", "name", "description")
       .limit(limit)
-      .offset(page * limit - limit)
+      .offset(offset)
       .then((articles) => res.json({ data: articles, count, limit }))
       .catch((err) => res.status(500).send(err));
   };
