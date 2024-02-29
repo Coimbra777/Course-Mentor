@@ -75,6 +75,9 @@ export default {
       ],
     };
   },
+  mounted() {
+    this.activateTab("usuarios");
+  },
   methods: {
     activateTab(tabId) {
       this.activeTab = tabId;
