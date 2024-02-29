@@ -26,5 +26,6 @@ export default {
 <style>
 .logo-svg {
   width: 100px;
+  color: #41444b;
 }
 </style>

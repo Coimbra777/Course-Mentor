@@ -5,6 +5,7 @@
       :class="{ 'hide-menu': !isMenuVisible || !user }"
     >
       <AppHeader
+        v-if="user"
         title="Course Mentor"
         :hideToggle="!user"
         :hideUserDropdown="!user"
@@ -12,7 +13,7 @@
       <AppMenu v-if="user" />
       <Loading v-if="validatingToken" />
       <AppContent v-else />
-      <AppFooter />
+      <AppFooter v-if="user" />
     </div>
   </div>
 </template>

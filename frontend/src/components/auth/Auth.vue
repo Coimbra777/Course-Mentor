@@ -53,13 +53,14 @@
           <button class="button-form" v-else @click="signin">Entrar</button>
         </div>
         <hr />
-
-        <p>
-          {{ showSignup ? "Já possui uma conta?" : "Não possui uma conta?" }}
-          <a class="link-router" href="#" @click="toggleSignup">{{
-            showSignup ? "Entrar" : "Cadastrar"
-          }}</a>
-        </p>
+        <div class="form-content">
+          <p>
+            {{ showSignup ? "Já possui uma conta?" : "Não possui uma conta?" }}
+            <a class="link-router" href="#" @click="toggleSignup">{{
+              showSignup ? "Entrar" : "Cadastrar"
+            }}</a>
+          </p>
+        </div>
       </form>
     </div>
   </div>
@@ -187,5 +188,14 @@ export default {
 }
 .link-router:hover {
   color: #fddc3a;
+}
+.auth-content hr {
+  color: #41444b;
+}
+.auth-content h2 {
+  color: #41444b;
+}
+.form-content {
+  color: #41444b;
 }
 </style>
