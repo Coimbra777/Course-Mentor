@@ -3,6 +3,7 @@ import HomePages from "../components/home/HomePage.vue";
 import AdminPages from "../components/admin/AdminPages.vue";
 import AuthPages from "../components/auth/Auth.vue";
 import { userKey } from "../global";
+import ArticlesByCategory from "../components/article/ArticlesByCategory.vue";
 
 const routes = [
   {
@@ -22,8 +23,13 @@ const routes = [
     component: AuthPages,
   },
   {
-    path: "/logout",
     name: "logout",
+    path: "/logout",
+  },
+  {
+    name: "ArticlesByCategory",
+    path: "/categories/:id/articles",
+    component: ArticlesByCategory,
   },
 ];
 
