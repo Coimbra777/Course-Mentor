@@ -36,3 +36,7 @@ docker compose up -d
 ```bash
 http://localhost:8080
 ```
+## Comando para parar os contêineres docker:
+```bash
+docker compose down
+```
