@@ -1,6 +1,7 @@
 module.exports = {
   client: "postgresql",
   connection: {
+    host: "database",
     database: "speed_drive",
     user: "postgres",
     password: "123456",
