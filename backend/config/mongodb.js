@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 mongoose
-  .connect("mongodb://root:root@mongodb:27017/mentor_stats", {
+  .connect("mongodb://root:password@mongodb:27017/mentor_stats", {
     // useNewUrlParser: true,
     // useUnifiedTopology: true,
   })

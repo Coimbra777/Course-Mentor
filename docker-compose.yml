@@ -1,4 +1,4 @@
-version: "3"
+version: "3.9"
 
 services:
   backend:
@@ -9,7 +9,7 @@ services:
       - ./backend:/app
     environment:
       NODE_ENV: production
-      MONGODB_URI: mongodb://mongodb:27017/mentor_stats
+      MONGODB_URI: mongodb://root:password@mongodb:27017/mentor_stats
     depends_on:
       - database
       - mongodb
@@ -40,16 +40,26 @@ services:
       - my-network
 
   mongodb:
-    image: mongodb/mongodb-community-server:6.0-ubi8
+    container_name: mongodb
+    image: mongo:latest
     restart: always
     ports:
       - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_ROOT_PASSWORD: password
       MONGO_INITDB_DATABASE: mentor_stats
+    volumes:
+      - mongodb-data:/data/db
+      - ./db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    env_file:
+      - .env
+    command: [--auth]
     networks:
       - my-network
+
+volumes:
+  mongodb-data:
 
 networks:
   my-network:
