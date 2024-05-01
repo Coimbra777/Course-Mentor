@@ -1,3 +1,10 @@
+const bcrypt = require("bcrypt-nodejs");
+
+const encryptPassword = (password) => {
+  const salt = bcrypt.genSaltSync(10);
+  return bcrypt.hashSync(password, salt);
+};
+
 exports.up = function (knex) {
   return knex.schema
     .createTable("users", (table) => {
@@ -12,7 +19,7 @@ exports.up = function (knex) {
         {
           name: "admin",
           email: "admin@admin.com.br",
-          password: "admin",
+          password: encryptPassword("123456"),
           admin: true,
         },
       ]);
