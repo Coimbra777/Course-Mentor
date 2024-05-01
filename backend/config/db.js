@@ -3,6 +3,7 @@ const knex = require("knex")(config);
 
 // função para rodar as migrations diretamente das configurações
 knex.migrate.latest([config]);
+
 // knex.client
 //   .acquireConnection()
 //   .then(() => {
