@@ -12,7 +12,14 @@ knex.migrate.latest([config]);
 //     console.error("Erro ao adquirir conexão:", err);
 //   })
 //   .finally(() => {
-//     knex.destroy();
+//     knex
+//       .destroy()
+//       .then(() => {
+//         console.log("Knex connection pool has been closed");
+//       })
+//       .catch((err) => {
+//         console.error("Error closing Knex connection pool:", err);
+//       });
 //   });
 
 module.exports = knex;

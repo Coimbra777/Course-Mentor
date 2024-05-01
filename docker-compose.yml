@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   backend:
@@ -9,8 +9,12 @@ services:
       - ./backend:/app
     environment:
       NODE_ENV: production
+      MONGODB_URI: mongodb://mongodb:27017/mentor_stats
     depends_on:
       - database
+      - mongodb
+    networks:
+      - my-network
 
   frontend:
     build: ./frontend
@@ -20,11 +24,33 @@ services:
       - ./frontend:/app
     depends_on:
       - backend
+    networks:
+      - my-network
 
   database:
     image: postgres:latest
     restart: always
+    ports:
+      - "5432:5432"
     environment:
-      POSTGRES_PASSWORD: 123456
+      POSTGRES_PASSWORD: "123456"
       POSTGRES_USER: postgres
       POSTGRES_DB: speed_drive
+    networks:
+      - my-network
+
+  mongodb:
+    image: mongodb/mongodb-community-server:6.0-ubi8
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: mentor_stats
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge

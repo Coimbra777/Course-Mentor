@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
-
-mongoose.connect("mongodb://localhost:27017/mentor_stats").catch((e) => {
-const msg = "ERRO, Não foi possível conectar com o mongodb";
-console.error(msg, e);
-});
+mongoose
+  .connect("mongodb://root:root@mongodb:27017/mentor_stats", {
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
+  })
+  .catch((e) => {
+    const msg = "ERRO! Não foi possível conectar com o MongoDB!";
+    console.log("\x1b[41m%s\x1b[37m", msg, "\x1b[0m");
+  });

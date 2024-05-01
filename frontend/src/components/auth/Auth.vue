@@ -90,13 +90,16 @@ export default {
       axios
         .post(`${baseApiUrl}/signin`, this.user)
         .then((res) => {
-          this.$store.commit("setUser", res.data);
-          localStorage.setItem(userKey, JSON.stringify(res.data));
-          this.$router.push({ path: "/" });
-          // this.showToast("Login bem-sucedido", "success");
+          if (res && res.data) {
+            this.$store.commit("setUser", res.data);
+            localStorage.setItem(userKey, JSON.stringify(res.data));
+            this.$router.push({ path: "/" });
+          } else {
+            this.showToast("Erro ao fazer login", "error");
+          }
         })
         .catch((error) => {
-          if (error.response.data) {
+          if (error.response && error.response.data) {
             this.showToast(error.response.data, "error");
           } else {
             this.showToast("Erro ao fazer login", "error");
