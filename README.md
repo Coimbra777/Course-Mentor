@@ -26,10 +26,25 @@ CourseMentor é uma plataforma de gestão de conteúdo para cursos online, desen
 
 1. Tenha o docker instalado na sua máquina.
 2. Clone este repositório em sua máquina local.
-3. Instale as dependências com o comando:
-
 ```bash
-docker compose up -d
+git clone  https://github.com/Coimbra777/Course-Mentor.git
+```
+3. Entre no diretorio de /Course-Mentor/backend e execute:
+```bash
+npm i
+```
+4. Entre no diretório de /Course-Mentor/frontend e execute:
+```bash
+npm i
+```
+## Com as dependências instaladas execute:
+```bash
+docker compose up --build
+```
+
+## Você pode verificar as conexões com os bancos de dados dando log no conteiner backend do projeto:
+```bash
+docker logs <id_do_conteiner_backend>
 ```
 
 ## Frontend estará rodando na porta:
