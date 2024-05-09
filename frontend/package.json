@@ -24,6 +24,7 @@
     "vue-toasted": "^1.1.28",
     "vue-toastification": "^2.0.0-rc.5",
     "vue3-gravatar": "^3.0.0",
+    "vue3-treeselect": "^0.1.10",
     "vuex": "^4.1.0"
   },
   "devDependencies": {
@@ -35,7 +36,8 @@
     "eslint-plugin-vue": "^9.21.0",
     "html-webpack-plugin": "^5.6.0",
     "vue-template-compiler": "^2.7.16",
-    "vueify": "^9.4.1"
+    "vueify": "^9.4.1",
+    "webpack-dev-server": "^5.0.4"
   },
   "eslintConfig": {
     "root": true,

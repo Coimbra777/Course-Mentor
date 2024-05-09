@@ -4,6 +4,7 @@ import AdminPages from "../components/admin/AdminPages.vue";
 import AuthPages from "../components/auth/Auth.vue";
 import { userKey } from "../global";
 import ArticlesByCategory from "../components/article/ArticlesByCategory.vue";
+import ArticleById from "@/components/article/ArticleById";
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     name: "ArticlesByCategory",
     path: "/categories/:id/articles",
     component: ArticlesByCategory,
+  },
+  {
+    name: "articleById",
+    path: "/articles/:id",
+    component: ArticleById,
   },
 ];
 
