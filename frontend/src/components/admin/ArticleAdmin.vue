@@ -38,7 +38,7 @@
       </div>
 
       <!-- Select para categoria -->
-      <div v-show="mode === 'save'" class="row">
+      <div v-show="mode === 'save' && categories.length > 0" class="row">
         <label for="article-categoryId">Categoria:</label>
         <select
           class="form-control-select"
@@ -54,6 +54,11 @@
             {{ category.text }}
           </option>
         </select>
+      </div>
+      <div v-show="mode === 'save' && categories.length === 0" class="row">
+        <span class="text-danger"
+          >Nenhuma categoria disponível. Adicione categorias primeiro.</span
+        >
       </div>
 
       <!-- Select para autor -->
@@ -263,11 +268,22 @@ export default {
     },
     loadCategories() {
       const url = `${baseApiUrl}/categories`;
-      axios.get(url).then((res) => {
-        this.categories = res.data.map((category) => {
-          return { value: category.id, text: category.path };
+      axios
+        .get(url)
+        .then((res) => {
+          this.categories = res.data.map((category) => {
+            return { value: category.id, text: category.path };
+          });
+
+          // Verifica se existem categorias disponíveis
+          if (this.categories.length === 0) {
+            // Se não houver categorias, define o campo categoryId como null ou -1
+            this.article.categoryId = null; // ou this.article.categoryId = -1;
+          }
+        })
+        .catch((error) => {
+          console.error("Erro ao carregar categorias:", error);
         });
-      });
     },
     loadUsers() {
       const url = `${baseApiUrl}/users`;

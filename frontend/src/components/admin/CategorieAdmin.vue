@@ -13,7 +13,7 @@
           :disabled="mode === 'remove'"
         />
       </div>
-      <div v-show="mode === 'save'" class="row">
+      <div v-show="mode === 'save' && categories.length > 0" class="row">
         <label for="category-parentId">Categoria Pai:</label>
         <select
           class="form-control-select"
@@ -25,6 +25,11 @@
             {{ cat.path }}
           </option>
         </select>
+      </div>
+      <div v-show="mode === 'save' && categories.length === 0" class="row">
+        <span class="text-danger"
+          >Nenhuma categoria disponível. Adicione categorias primeiro.</span
+        >
       </div>
       <div class="mt-3 mb-3">
         <button
@@ -118,7 +123,7 @@ export default {
       ],
       sortField: null,
       sortOrder: "asc",
-      toast: null,
+      toast: useToast(),
     };
   },
   computed: {
@@ -135,12 +140,25 @@ export default {
   methods: {
     loadCategories() {
       const url = `${baseApiUrl}/categories`;
-      axios.get(url).then((res) => {
-        // this.categories = res.data;
-        this.categories = res.data.map((category) => {
-          return { ...category, value: category.id, text: category.path };
+
+      axios
+        .get(url)
+        .then((res) => {
+          const categories = res.data;
+          if (categories.length > 0) {
+            this.categories = res.data.map((category) => {
+              return { ...category, value: category.id, text: category.path };
+            });
+            console.log("Categorias carregadas:", this.categories);
+          } else {
+            this.categories = [
+              { value: null, text: "Nenhuma categoria encontrada" },
+            ];
+          }
+        })
+        .catch((error) => {
+          console.error("Erro ao carregar categorias:", error);
         });
-      });
     },
     loadCategory(category, mode = "save") {
       this.mode = mode;
@@ -210,8 +228,8 @@ export default {
     },
   },
   mounted() {
-    this.loadCategories();
-    this.toast = useToast();
+    if (this.categories.length !== 0) this.loadCategories();
+    // this.toast = useToast();
   },
 };
 </script>

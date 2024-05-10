@@ -76,7 +76,7 @@ export default {
     };
   },
   mounted() {
-    this.activateTab("artigos");
+    this.activateTab("categorias");
   },
   methods: {
     activateTab(tabId) {
